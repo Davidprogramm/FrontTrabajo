@@ -1,0 +1,579 @@
+<div class="container-fluid ">
+
+  <div class=" row mt-2" > 
+<div class="col-1 "> 
+  <svg  xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+</svg>
+
+</div>
+   <div class="col-6 col-md-4">
+    <h3 >
+      Clientes
+    </h3>
+   </div>
+
+
+  </div>
+
+
+  <div class="mt-4 shadow w-100">
+    
+    <!-- Boton Busqueda Cliente -->
+ <div class="row m-0"> 
+  <div class="col-12">
+     <form class="mt-4" (ngSubmit)="encontrarCliente(id)">
+    <input class="col-10 " type="text" id="id" [(ngModel)]="id" name="id" placeholder="Ingrese el Id a buscar">
+    <button  class="btn btn-primary col-2" type="submit" 
+          data-bs-toggle="modal"
+          data-bs-target="#mi-modal-2" 
+    >Buscar</button>
+  </form>  
+
+  </div>
+ 
+
+
+        <!-- BOTON AGREGAR -->
+        <div class="m-2 ">                 
+          <button  
+          class=
+          "btn btn-primary" 
+          data-bs-toggle="modal"
+          data-bs-target="#mi-modal-1"          
+          >
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+          </svg>  Agregar Cliente</button>
+        </div>
+  
+  
+  
+          <div >
+            
+            <table class="table container table-hover ">
+              <thead>
+                <tr>
+                  <th scope="col">id</th>
+                  <th scope="col">Identificacion</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Telefono</th>
+                </tr>
+              </thead>
+              <tbody >
+                  <tr  *ngFor="let usuari of usuario?.slice(0, 20); let i = index">
+                      <td >{{ usuari.id_cliente}}</td>
+                      <td >{{ usuari.identificacion }}</td>
+                      <td>{{ usuari.nombre }}</td>
+                      <td>{{ usuari.apellido }}</td>
+                      <td>{{ usuari.email }}</td>
+                      <td>{{ usuari.telefono }}</td>  
+
+
+
+
+                      <!-- EDITAR -->
+
+                      <button (click)="encontrarCliente(usuari.id_cliente)" class="btn btn-primary" 
+                      data-bs-toggle="modal"
+                      data-bs-target="#mi-modal-2"
+                      
+                      >Editar</button>                       
+                    </tr>
+              </tbody>
+            </table>      
+          </div>       
+  </div>
+
+                    <!-- CAJA MODAAAL -->
+                    <div
+                        class="modal fade "
+                        id="mi-modal-1"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        aria-labelledby="label-modal-1"
+                      >
+                    <!-- CAJA DE DIALOGO -->
+                      <div class="modal-dialog">
+                    <!-- CONTENIDO DE LA CAJA -->
+                      <div class="modal-content">
+                        <!-- ENCABEZADO DE LA CAJA -->
+                          <div class="modal-header">
+                              <h5 class="modal-title">CREAR CLIENTE</h5>
+                              <button class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                          </div>
+                          <!-- CUERPO DE LA CAJA -->
+                          <div class="modal-body">
+                              <form #FormContacto="ngForm" (ngSubmit)="createCliente()">
+    
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="identificacion">
+    
+                  <span class="input-group-text">Identificación</span>
+                </label>
+                <input class="form-control" type="text" id="identificacion" name="identificacion" [(ngModel)]="nuevoCliente.identificacion" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="nombre">
+                  <span class="input-group-text">Nombre</span>
+                </label>
+                <input type="text" id="nombre" name="nombre" class="form-control" [(ngModel)]="nuevoCliente.nombre" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="apellido">
+                  <span class="input-group-text">Apellido</span>
+                </label>
+                <input type="text" id="apellido" name="apellido" class="form-control" [(ngModel)]="nuevoCliente.apellido" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="email">
+                  <span class="input-group-text">Correo Electrónico</span>
+                </label>
+                <input type="email" id="email" name="email" class="form-control" [(ngModel)]="nuevoCliente.email" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="telefono">
+                  <span class="input-group-text">Teléfono</span>
+                </label>
+                <input type="text" id="telefono" name="telefono" class="form-control" [(ngModel)]="nuevoCliente.telefono" required>
+              </div>
+      
+              <!-- Pie de Pagina de la caja -->
+              <div class="modal-foter">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                <button  class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" >Guardar Cliente</button>
+
+                
+            </div>
+            </form>   
+            
+            
+
+            
+                          </div>
+                          
+                        
+                      </div>
+
+                      </div>
+
+                    </div>
+                    <!-- CIERRE CAJA MODAL -->
+
+
+
+
+                    <!--  MODAL DE EDITAR -->
+
+                    <div
+                    class="modal fade "
+                    id="mi-modal-2"
+                    tabindex="-1"
+                    aria-hidden="true"
+                    aria-labelledby="label-modal-1"
+                  >
+                <!-- CAJA DE DIALOGO -->
+                  <div class="modal-dialog">
+                <!-- CONTENIDO DE LA CAJA -->
+                  <div class="modal-content">
+                    <!-- ENCABEZADO DE LA CAJA -->
+                      <div class="modal-header">
+                          <h5 class="modal-title">EDITAR CLIENTE</h5>
+                          <button class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                      </div>
+                      <!-- CUERPO DE LA CAJA -->
+                      <div class="modal-body">
+                        <form #FormContacto="ngForm"  (ngSubmit)="actualizarCliente()">
+                          <div class="input-group mb-3">
+                            <label class="input-group-prepend" for="identificacion">
+                              <span class="input-group-text">Identificación</span>
+                            </label>
+                            <input class="form-control" type="text" id="identificacion" name="identificacion" [(ngModel)]="clienteAEditar.identificacion" required>
+                          </div>
+                      
+                          <div class="input-group mb-3">
+                            <label class="input-group-prepend" for="nombre">
+                              <span class="input-group-text">Nombre</span>
+                            </label>
+                            <input type="text" id="nombre" name="nombre" class="form-control" [(ngModel)]="clienteAEditar.nombre" required>
+                          </div>
+                      
+                          <div class="input-group mb-3">
+                            <label class="input-group-prepend" for="apellido">
+                              <span class="input-group-text">Apellido</span>
+                            </label>
+                            <input type="text" id="apellido" name="apellido" class="form-control" [(ngModel)]="clienteAEditar.apellido" required>
+                          </div>
+                      
+                          <div class="input-group mb-3">
+                            <label class="input-group-prepend" for="email">
+                              <span class="input-group-text">Correo Electrónico</span>
+                            </label>
+                            <input type="email" id="email" name="email" class="form-control" [(ngModel)]="clienteAEditar.email" required>
+                          </div>
+                      
+                          <div class="input-group mb-3">
+                            <label class="input-group-prepend" for="telefono">
+                              <span class="input-group-text">Teléfono</span>
+                            </label>
+                            <input type="text" id="telefono" name="telefono" class="form-control" [(ngModel)]="clienteAEditar.telefono" required>
+                          </div>
+                      
+                          <!-- Pie de Pagina de la caja -->
+                          <div class="modal-foter">                            
+                            <button class="btn btn-danger  " 
+                            (click)="delete(clienteAEditar.id_cliente)" 
+                            data-bs-target="#borrarCliente" 
+                            data-bs-toggle="modal">
+                            Eliminar 
+                          </button>
+                            <button 
+                            class="btn btn-primary" 
+                            data-bs-target="#actualizarCliente"
+                             data-bs-toggle="modal">
+                             Actualizar  Cliente
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                      
+                      
+                    
+                  </div>
+
+                  </div>
+
+                </div>
+
+
+
+
+
+
+  </div>
+<!-- CREAR CLIENTE -->
+  <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Modal 1</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" >
+          <div *ngIf="creado">
+            <h3>
+              CLIENTE CREADO CON EXITO 
+            </h3>
+          </div>
+          <div *ngIf="!creado">
+            <h3>
+              ERROR AL CREAR CLIENTE
+            </h3>
+             
+          </div>
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BORRAR CLIENTE -->
+  <div class="modal fade" id="borrarCliente" aria-hidden="true" aria-labelledby="borrarCliente" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">EN CLIENTE BORRADO</h1>       
+        </div>
+        <div class="modal-body" >
+          <div *ngIf="borrado">
+            <h3>
+              Cliente borrado con exito 
+            </h3>
+          </div>
+          <div *ngIf="!borrado">
+            <h3>
+              No se pudo eliminar cliente
+            </h3>
+             
+          </div>
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTUALIZAR CLIENTE -->
+  <div class="modal fade" id="actualizarCliente" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Modal 1</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" >
+          <div *ngIf="actualizado">
+            <h3>
+              CLIENTE ACTUALIZADO CON EXITO
+            </h3>
+          </div>
+          <div *ngIf="!actualizado">
+            <h3>
+             ERROR AL ACTUALIZAR EL CLIENTE
+            </h3>
+             
+          </div>
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  
+
+
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">                    
+                    <button class="btn btn-primary w-100"  (click)="abrirAgregar()" > Agregar cliente</button>
+    
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">                    
+                    <button class="btn btn-primary w-100"  (click)="listarClientes()"> Listar clientes</button>
+    
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">                    
+                    <button class="btn btn-primary w-100" (click)="abrirCliente()">Buscar cliente</button>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div *ngIf="listaCliente">
+
+        <form   class="container mt-4" (ngSubmit)="capturarNombre(id)">
+            <label for="nombre">ID:</label>
+            <input type="text" id="id" [(ngModel)]="id" name="id">
+            <button  class="btn btn-primary" type="submit">Capturar</button>
+          </form>       
+         
+            <table class="table container">
+              <thead>
+                <tr>
+                  <th scope="col">Identificacion</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Telefono</th>
+                  <th scope="col">Borrar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let usuari of usuarioBusqueda">
+                  <td>{{ usuari.identificacion }}</td>
+                  <td>{{ usuari.nombre }}</td>
+                  <td>{{ usuari.apellido }}</td>
+                  <td>{{ usuari.email }}</td>
+                  <td>{{ usuari.telefono }}</td>
+                  <td> 
+                    <button class="btn btn-danger  " (click)="delete(id)" >Eliminar </button>
+                </td> 
+                </tr>
+
+              </tbody>
+            </table>         
+          <button class="btn btn-primary"  type="submit" (click)="salirListaCliente()">Salir</button>     
+</div>
+
+
+
+
+<div *ngIf="listaAgregar">
+    <div class="container">
+        <h2 class="text-primary">Ingresar Nuevo Cliente</h2>
+        <div class="row mt-3">
+          <div class="col">
+            <form #FormContacto="ngForm" (ngSubmit)="createCliente()">
+    
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="identificacion">
+    
+                  <span class="input-group-text">Identificación</span>
+                </label>  
+                <input class="form-control" type="text" id="identificacion" name="identificacion" [(ngModel)]="nuevoCliente.identificacion" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="nombre">
+                  <span class="input-group-text">Nombre</span>
+                </label>
+                <input type="text" id="nombre" name="nombre" class="form-control" [(ngModel)]="nuevoCliente.nombre" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="apellido">
+                  <span class="input-group-text">Apellido</span>
+                </label>
+                <input type="text" id="apellido" name="apellido" class="form-control" [(ngModel)]="nuevoCliente.apellido" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="email">
+                  <span class="input-group-text">Correo Electrónico</span>
+                </label>
+                <input type="email" id="email" name="email" class="form-control" [(ngModel)]="nuevoCliente.email" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="telefono">
+                  <span class="input-group-text">Teléfono</span>
+                </label>
+                <input type="text" id="telefono" name="telefono" class="form-control" [(ngModel)]="nuevoCliente.telefono" required>
+              </div>
+      
+              <button class="btn btn-primary" type="submit">Guardar Cliente</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="container mt-1">
+        <button class="btn btn-primary"  type="submit" (click)="salirListaAgregar()">Salir</button>  
+      </div>
+        
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+               
+
+
+
+
+<div *ngIf="lista"> 
+
+    <table class="table container">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Identificacion</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telefono</th>
+          </tr>
+        </thead>
+        <tbody >
+            <tr *ngFor="let usuari of usuario?.slice(0, 6); let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ usuari.identificacion }}</td>
+                <td>{{ usuari.nombre }}</td>
+                <td>{{ usuari.apellido }}</td>
+                <td>{{ usuari.email }}</td>
+                <td>{{ usuari.telefono }}</td>
+              </tr>
+        </tbody>
+      </table>    
+    <tbody>
+
+        
+            <button class="btn btn-primary"  type="submit" (click)="salirListaClientes()">Salir</button> 
+       
+            
+</div>
+
+
+<div *ngIf="listaAgregar">
+    <div class="container">
+        <h2 class="text-primary">Ingresar Nuevo Cliente</h2>
+        <div class="row mt-3">
+          <div class="col">
+            <form #FormContacto="ngForm" (ngSubmit)="createCliente()">
+    
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="identificacion">
+    
+                  <span class="input-group-text">Identificación</span>
+                </label>
+                <input class="form-control" type="text" id="identificacion" name="identificacion" [(ngModel)]="nuevoCliente.identificacion" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="nombre">
+                  <span class="input-group-text">Nombre</span>
+                </label>
+                <input type="text" id="nombre" name="nombre" class="form-control" [(ngModel)]="nuevoCliente.nombre" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="apellido">
+                  <span class="input-group-text">Apellido</span>
+                </label>
+                <input type="text" id="apellido" name="apellido" class="form-control" [(ngModel)]="nuevoCliente.apellido" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="email">
+                  <span class="input-group-text">Correo Electrónico</span>
+                </label>
+                <input type="email" id="email" name="email" class="form-control" [(ngModel)]="nuevoCliente.email" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="telefono">
+                  <span class="input-group-text">Teléfono</span>
+                </label>
+                <input type="text" id="telefono" name="telefono" class="form-control" [(ngModel)]="nuevoCliente.telefono" required>
+              </div>
+      
+              <button class="btn btn-primary" type="submit">Guardar Cliente</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="container mt-1">
+        <button class="btn btn-primary"  type="submit" (click)="salirListaAgregar()">Salir</button>  
+      </div>
+        
+    
+</div> -->

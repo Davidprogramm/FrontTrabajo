@@ -1,0 +1,337 @@
+<div class="container-fluid row">
+    <!-- CABECERA -->
+         <div class=" row mt-2" > 
+            <div class="col-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase-fill" viewBox="0 0 16 16">
+                    <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85v5.65z"/>
+                </svg>
+            </div>               
+            <div class="col-2 ">
+                <h3>
+                    Vendedores
+                </h3>
+            </div>   
+          </div>
+
+
+          <div class="mt-4 shadow w-100">
+         <!-- BOTON BUSQUEDA --> 
+            <div class="col-12">               
+               <form class="mt-4" (ngSubmit)="encontrarVendedor(id)">
+              <input class="col-10 " type="text" id="id"  [(ngModel)]="id" name="id" placeholder="INGRESE EL ID A BUSCAR">
+              <button  class="btn btn-primary col-2" type="submit" 
+                    data-bs-toggle="modal"
+                    data-bs-target="#mi-modal-2" 
+              >Buscar</button>
+            </form>  
+          
+            </div>
+          </div>
+        <!-- FIN BOTON BUSQUEDA -->
+        <!-- BOTON AGREGAR VENDEDOR -->
+        <div class="m-2 ">                 
+            <button  
+            class=
+            "btn btn-primary" 
+            data-bs-toggle="modal"
+            data-bs-target="#mi-modal-1"          
+            >
+  
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+            </svg>  Agregar Vendedor</button>
+          </div>
+          <!-- FIN BOTON AGREGAR VENDEDOR -->
+          <!-- LISTADO DE VENDEDORES -->
+          <div >
+            
+                <table class="table container table-hover ">
+              <thead>
+                <tr>
+                  <th scope="col">id</th>
+                  <th scope="col">Identificacion</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Telefono</th>
+                </tr>
+              </thead>
+              <tbody >
+                  <tr  *ngFor="let vendedo of vendedor?.slice(0, 20); let i = index">
+                      <td >{{ vendedo.id_vendedor}}</td>
+                      <td >{{ vendedo.identificacion }}</td>
+                      <td>{{ vendedo.nombre }}</td>
+                      <td>{{ vendedo.apellido }}</td>
+                      <td>{{ vendedo.email }}</td>
+                      <td>{{ vendedo.telefono }}</td>  
+                      <!-- EDITAR -->
+
+                      <button (click)="encontrarVendedor(vendedo.id_vendedor)" class="btn btn-primary" 
+                      data-bs-toggle="modal"
+                      data-bs-target="#mi-modal-2"                      
+                      >Editar</button>                       
+                    </tr>
+              </tbody>
+            </table>      
+          </div> 
+          <!-- FIN LISTADO VENDEDORES -->
+
+          <!-- MODALES DE AGREGAR VENEDEDOR -->
+          
+                    <!-- CAJA MODAL DE FORMULARIO AGREGAR-->
+                    <div
+                        class="modal fade "
+                        id="mi-modal-1"
+                        tabindex="-1"
+                        aria-hidden="true"
+                        aria-labelledby="label-modal-1"
+                      >
+                    <!-- CAJA DE DIALOGO -->
+                      <div class="modal-dialog">
+                    <!-- CONTENIDO DE LA CAJA -->
+                      <div class="modal-content">
+                        <!-- ENCABEZADO DE LA CAJA -->
+                          <div class="modal-header">
+                              <h5 class="modal-title">CREAR Vendedor</h5>
+                              <button class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                          </div>
+                          <!-- CUERPO DE LA CAJA -->
+                          <div class="modal-body">
+                              <form #FormContacto="ngForm" (ngSubmit)="crearVendedor()">
+    
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="identificacion">
+    
+                  <span class="input-group-text">Identificación</span>
+                </label>
+                <input class="form-control" type="text" id="identificacion" name="identificacion" [(ngModel)]="nuevoVendedor.identificacion" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="nombre">
+                  <span class="input-group-text">Nombre</span>
+                </label>
+                <input type="text" id="nombre" name="nombre" class="form-control" [(ngModel)]="nuevoVendedor.nombre" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="apellido">
+                  <span class="input-group-text">Apellido</span>
+                </label>
+                <input type="text" id="apellido" name="apellido" class="form-control" [(ngModel)]="nuevoVendedor.apellido" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="email">
+                  <span class="input-group-text">Correo Electrónico</span>
+                </label>
+                <input type="email" id="email" name="email" class="form-control" [(ngModel)]="nuevoVendedor.email" required>
+              </div>
+      
+              <div class="input-group mb-3">
+                <label class="input-group-prepend" for="telefono">
+                  <span class="input-group-text">Teléfono</span>
+                </label>
+                <input type="text" id="telefono" name="telefono" class="form-control" [(ngModel)]="nuevoVendedor.telefono" required>
+              </div>
+      
+              <!-- Pie de Pagina de la caja -->
+              <div class="modal-foter">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                <button  class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" >Guardar Vendedor</button>
+
+                
+            </div>
+            </form>   
+            
+            
+
+            
+                          </div>
+                          
+                        
+                      </div>
+
+                      </div>
+
+                    </div>
+                    <!-- CIERRE CAJA MODAL  DE FORMULARIO AGREGAR-->
+
+
+          <!-- MODAL DE RESPUESTA DE AGREGAR -->
+          <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalToggleLabel">AGREGAR VENDEDOR</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" >
+                  <div *ngIf="creado">
+                    <h3>
+                      VENDEDOR CREADO CON EXITO
+                    </h3>
+                  </div>
+                  <div *ngIf="!creado">
+                    <h3>
+                      ERROR AL CREAR VENDEDOR
+                    </h3>
+                     
+                  </div>
+                 
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FIN MODAL RESPUESTA CREAR VENDEDOR -->
+          <!-- FIN MODALES AGREGAR -->
+
+          
+      
+<!-- MODAL DE CUANDO ENCUENTRA Y EDITA , BORRA -->
+<div
+class="modal fade "
+id="mi-modal-2"
+tabindex="-1"
+aria-hidden="true"
+aria-labelledby="label-modal-1"
+>
+<!-- CAJA DE DIALOGO -->
+<div class="modal-dialog">
+<!-- CONTENIDO DE LA CAJA -->
+<div class="modal-content">
+<!-- ENCABEZADO DE LA CAJA -->
+  <div class="modal-header">
+      <h5 class="modal-title">EDITAR CLIENTE</h5>
+      <button class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+  </div>
+  <!-- CUERPO DE LA CAJA -->
+  <div class="modal-body">
+    <form #FormContacto="ngForm"  (ngSubmit)="actualizarVendedor()">
+      <div class="input-group mb-3">
+        <label class="input-group-prepend" for="identificacion">
+          <span class="input-group-text">Identificación</span>
+        </label>
+        <input class="form-control" type="text" id="identificacion" name="identificacion" [(ngModel)]="vendedorAEditar.identificacion" required>
+      </div>
+  
+      <div class="input-group mb-3">
+        <label class="input-group-prepend" for="nombre">
+          <span class="input-group-text">Nombre</span>
+        </label>
+        <input type="text" id="nombre" name="nombre" class="form-control" [(ngModel)]="vendedorAEditar.nombre" required>
+      </div>
+  
+      <div class="input-group mb-3">
+        <label class="input-group-prepend" for="apellido">
+          <span class="input-group-text">Apellido</span>
+        </label>
+        <input type="text" id="apellido" name="apellido" class="form-control" [(ngModel)]="vendedorAEditar.apellido" required>
+      </div>
+  
+      <div class="input-group mb-3">
+        <label class="input-group-prepend" for="email">
+          <span class="input-group-text">Correo Electrónico</span>
+        </label>
+        <input type="email" id="email" name="email" class="form-control" [(ngModel)]="vendedorAEditar.email" required>
+      </div>
+  
+      <div class="input-group mb-3">
+        <label class="input-group-prepend" for="telefono">
+          <span class="input-group-text">Teléfono</span>
+        </label>
+        <input type="text" id="telefono" name="telefono" class="form-control" [(ngModel)]="vendedorAEditar.telefono" required>
+      </div>
+  
+      <!-- Pie de Pagina de la caja -->
+      <div class="modal-foter">                            
+        <button class="btn btn-danger  " 
+        (click)="delete(vendedorAEditar.id_vendedor)" 
+        data-bs-target="#borrarCliente" 
+        data-bs-toggle="modal">
+        Eliminar 
+      </button>
+        <button 
+        class="btn btn-primary" 
+        data-bs-target="#actualizarCliente"
+         data-bs-toggle="modal">
+         Actualizar  Cliente
+        </button>
+      </div>
+    </form>
+  </div>
+  
+  
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MODAL ACTUALIZACION RESPUESTA -->
+<div class="modal fade" id="actualizarCliente" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Modal 1</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" >
+          <div *ngIf="actualizado">
+            <h3>
+              VENDEDOR ACTUALIZADO CON EXITO
+            </h3>
+          </div>
+          <div *ngIf="!actualizado">
+            <h3>
+             ERROR AL ACTUALIZAR EL VENDEDOR
+            </h3>
+             
+          </div>
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN MODAL DE  ACTUALIZACION RESPUESTA  -->
+  <!-- MODAL RESPUESTA BORRADO -->
+  <div class="modal fade" id="borrarCliente" aria-hidden="true" aria-labelledby="borrarCliente" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">EN CLIENTE BORRADO</h1>       
+        </div>
+        <div class="modal-body" >
+          <div *ngIf="borrado">
+            <h3>
+              VENDEDOR BORRADO  
+            </h3>
+          </div>
+          <div *ngIf="!borrado">
+            <h3>
+             NO SE PUDO BORRAR VENDEDOR
+            </h3>
+             
+          </div>
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN MODAL RESPUESTA BORRADO -->
+<!-- FIN MODAL EDITAR ENCOTRAR Y BORRAR -->
+
+
+</div>

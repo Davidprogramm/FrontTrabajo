@@ -1,0 +1,93 @@
+body{
+    background-color: #f2f2f2;
+    font-size: 16px;
+    font-family:'Open Sans', 'Helvetica Neue', sans-serif0;
+
+}
+a{
+    text-decoration: none;
+}
+
+.barra-lateral{
+    background-color: #262a34;
+    color: white;
+    min-width: 300px;
+    min-height: 100vh;
+}
+
+.barra-lateral a{
+    color: white;
+
+}
+/* ENLANCES*/
+
+.barra-lateral .logo{
+    background-color: #0275db;
+
+}
+.barra-lateral .logo h2{
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-weight: 300;
+}
+ 
+
+/*Menu*/
+.barra-lateral .menu a {
+    display: block;
+    padding: 20px;
+    font-family: 'Roboto',sans-serif;
+    font-weight: 500;
+    border-bottom:  1px solid rgba(255, 255, 255, .1);
+
+}
+.barra-lateral .menu a:hover{
+    background-color: #35ab6b;
+}
+.barra-lateral .menu a svg{
+    margin-right: 10px;
+}
+
+
+/*---MEDIAQUERYS--*/
+/*Extra pequeño*/
+@media screen and(max-width:320px) {
+    
+}
+/*pequeño*/
+@media screen and (max-width:576px) {
+    .barra-lateral{
+        min-height: auto;
+    }
+    
+}
+/*mediano*/
+@media screen and (max-width:768px) {
+    
+}
+/*largo*/
+@media screen and (max-width:992px) {
+    .barra-lateral .logo{
+        display: none;
+    }
+    
+}
+/*extralargo*/
+@media screen and (max-width:1200px) {
+    .barra-lateral{
+        min-width: auto;
+        
+    }
+    .barra-lateral .logo h2{
+       font-size: 14px;
+    }
+   
+    .barra-lateral .menu a svg{
+        display: none;
+    }
+}
+/*xxxL*/
+@media screen and(max-width:1400px) {
+    
+}
